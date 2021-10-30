@@ -1,0 +1,209 @@
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    line-height: 150%;
+
+}
+$backgroundcolor : rgb(13, 74, 241);
+$height : 10vh;
+@debug lightness($backgroundcolor);
+
+
+.normala
+{
+    text-decoration: none;
+    display: inline;
+
+}
+
+
+@mixin fontstack($fontsize,$testalign) {
+    font-size: $fontsize;
+    font-family: "Helvetica";
+    font-weight: bold;
+    text-align: $testalign;
+    @if  $backgroundcolor == #000000 {
+        color: white;
+    }
+
+
+    @else if lightness($backgroundcolor) >70
+    {
+        color: black;
+
+    }
+    @else
+    {
+        color: white;
+    }
+    
+}
+
+@mixin setflex($direction,$justifycontent,$aligncontent)
+{
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justifycontent;
+    align-items: $aligncontent;
+}
+@mixin buttons ($backgroundcolor,$color){
+    padding:1rem;
+    border-radius: 8%;
+    background-color: $backgroundcolor;
+    color: $color;
+    margin-right: 1rem;
+    
+}
+
+
+header 
+{
+   
+    @include setflex(row,space-around ,center );
+
+    @include fontstack(1.5,justify);
+    height: $height;
+    background-color: $backgroundcolor;
+    padding-top:1em;
+    div
+    {
+        
+       @include setflex(row,center ,center );
+    }
+     div , nav
+    {
+        width: 50%;
+    }
+    
+}
+nav
+{
+
+    ul
+    {
+        display: flex;
+        justify-content: space-evenly ;
+
+        li
+        {
+            list-style-type: none;
+
+            a
+            {
+                @include fontstack(1.2,none);
+                @extend .normala
+            }
+        }
+        li :hover
+        {
+            font-size: 24px;
+            border-bottom: solid green;
+        }
+    }
+}
+
+.poster
+{
+    @include setflex(row,space-around ,center );
+    
+    background-color: $backgroundcolor;
+
+    div
+    {
+        width: 50%;
+    }
+    div img
+    {
+        width: 80%;
+        animation: fadein 5s ease-in-out ;
+    }
+    
+   
+}
+.button
+{
+    @include setflex(row,center ,center )
+}
+
+.content
+{
+    @include fontstack(1.2rem,justify);
+    @include setflex(column,space-between,center );
+    margin:1rem;
+
+    a
+    {
+        
+        @include buttons(rgba(223, 213, 213, 0.336),white );
+        @extend .normala
+    }
+    h1,p
+    {
+        margin-bottom: 5rem;
+    }
+    .btn-secondary
+    {
+        @include buttons(orange,white );
+   
+    }
+}
+
+@keyframes fadein {
+    0%
+    {
+        opacity: 0;
+    }
+    50%
+    {
+        opacity: .5;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+    
+
+@media screen and (max-width:768px){
+
+    header
+    {
+            @include fontstack(1em,center);
+
+    }
+    .poster
+    {
+        .content
+        {
+            h1
+            {
+                @include fontstack(2em,center);
+
+            }
+        }
+        div
+        {
+            width: 100%;
+        }
+        .image
+        {
+            display: none
+
+        }
+    }
+
+    .button
+{
+    @include setflex(column,space-between ,center );
+    a{
+        margin-top: 2rem;
+    }
+    
+}
+
+
+    
+}
